@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mystic Falls Upper East Side Chronicles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0d12;
+            --container-bg: rgba(20, 15, 25, 0.85);
+            --gold: #c9a84c;
+            --gold-hover: #e0c068;
+            --emerald: #2e4d3a;
+            --purple: #4a2e5c;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --correct: #4caf50;
+            --incorrect: #f44336;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a0b2e, #0d0d12);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
+            padding: 40px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Декоративные элементы */
+        .container::before {
+            content: '🦇';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2em;
+            opacity: 0.2;
+        }
+        .container::after {
+            content: '🗝️';
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            font-size: 2em;
+            opacity: 0.2;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            border-bottom: 2px solid var(--purple);
+            padding-bottom: 15px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(201, 168, 76, 0.4);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .student-info {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--purple);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+            font-size: 0.9em;
+        }
+
+        .task-block {
+            margin-bottom: 45px;
+            border-left: 3px solid var(--emerald);
+            padding-left: 20px;
+        }
+
+        .task-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-title::before {
+            content: '🩸';
+            font-size: 0.8em;
+        }
+
+        p, li {
+            font-size: 1em;
+        }
+
+        .word-bank {
+            background: rgba(74, 46, 92, 0.3);
+            border: 1px dashed var(--gold);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--gold);
+            text-align: center;
+        }
+
+        /* Стили для полей ввода */
+        input[type="text"] {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            padding: 2px 5px;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        input[type="text"]:focus {
+            border-bottom: 2px solid #fff;
+            box-shadow: 0 5px 10px -5px rgba(201, 168, 76, 0.5);
+        }
+
+        input[type="text"].correct {
+            border-bottom: 2px solid var(--correct);
+            color: var(--correct);
+        }
+
+        input[type="text"].incorrect {
+            border-bottom: 2px solid var(--incorrect);
+            color: var(--incorrect);
+        }
+
+        /* Стили для выпадающих списков */
+        select {
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--text-main);
+            border: 1px solid var(--purple);
+            padding: 5px 10px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        select:focus {
+            border-color: var(--gold);
+        }
+
+        /* Стили для текстовых областей */
+        textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--purple);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            padding: 10px;
+            border-radius: 4px;
+            resize: vertical;
+            outline: none;
+            box-sizing: border-box;
+        }
+        textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+        .timeline-date {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            min-width: 70px;
+            font-weight: bold;
+        }
+
+        /* Кнопки */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: var(--gold);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
+        }
+
+        button.reset-btn {
+            border-color: var(--purple);
+            color: var(--purple);
+        }
+        button.reset-btn:hover {
+            background: var(--purple);
+            color: #fff;
+        }
+
+        /* Ключи */
+        .answer-key {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(46, 77, 58, 0.2);
+            border: 1px solid var(--emerald);
+            border-radius: 4px;
+        }
+        .answer-key h3 {
+            margin-top: 0;
+            color: var(--emerald);
+        }
+        .answer-key p {
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        .answer-key strong {
+            color: var(--gold);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.6em; }
+            .timeline-item { flex-direction: column; align-items: flex-start; gap: 2px; }
+            input[type="text"] { min-width: 80px; }
+        }
+
+        /* Печать */
+        @media print {
+            body { background: #fff; color: #000; padding: 0; }
+            .container { background: #fff; border: none; box-shadow: none; padding: 0; max-width: 100%; }
+            h1, h2, h3, .task-title, .timeline-date { color: #000; }
+            .subtitle { color: #555; }
+            input[type="text"], textarea, select { border-bottom: 1px solid #000; color: #000; background: transparent; }
+            .word-bank { border-color: #000; color: #000; background: #f0f0f0; }
+            .btn-container, .answer-key, .container::before, .container::after { display: none !important; }
+            .task-block { border-left: 2px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Mystic Falls<br>Upper East Side Chronicles</h1>
+    <div class="subtitle">"You know you love me. XOXO" — Gossip Girl</div>
+
+    <div class="student-info">
+        <span>Student: _________________________</span>
+        <span>Date: _________________</span>
+    </div>
+
+    <!-- TASK 1 -->
+    <div class="task-block">
+        <div class="task-title">Task 1: Life Stages & Characters (Warm-up & Review)</div>
+        <p><em>Fill in the blanks by choosing the correct phrase from the dropdown menu.</em></p>
+        
+        <div class="word-bank">
+            be an infant • be a centenarian • be an adult • be a toddler • be elderly • be in your teens • be middle-aged
+        </div>
+
+        <ol>
+            <li>Elena Gilbert and Blair Waldorf were both incredibly dramatic when they were <select id="t1_1"><option value="">--Select--</option><option value="in their teens">in their teens</option><option value="middle-aged">middle-aged</option><option value="elderly">elderly</option></select>, navigating high school, secrets, and forbidden love.</li>
+            <li>Klaus Mikaelson is over 1000 years old, so technically he is a <select id="t1_2"><option value="">--Select--</option><option value="centenarian">centenarian</option><option value="toddler">toddler</option><option value="infant">infant</option></select>, though he doesn't look a day over 25.</li>
+            <li>Lily van der Woodsen returned to the Upper East Side as a sophisticated <select id="t1_3"><option value="">--Select--</option><option value="middle-aged">middle-aged</option><option value="in their teens">in their teens</option><option value="an infant">an infant</option></select> woman, ready to judge everyone's fashion choices.</li>
+            <li>A newborn baby in Mystic Falls (or a newly turned vampire) is considered <select id="t1_4"><option value="">--Select--</option><option value="an infant">an infant</option><option value="elderly">elderly</option><option value="an adult">an adult</option></select>, completely helpless and needing constant care.</li>
+            <li>Once you turn 18, society expects you to act like <select id="t1_5"><option value="">--Select--</option><option value="an adult">an adult</option><option value="a toddler">a toddler</option><option value="a centenarian">a centenarian</option></select>, even if you still feel like <select id="t1_6"><option value="">--Select--</option><option value="a toddler">a toddler</option><option value="an adult">an adult</option><option value="elderly">elderly</option></select> throwing a tantrum over a broken phone.</li>
+            <li>The founding families of Mystic Falls have many <select id="t1_7"><option value="">--Select--</option><option value="elderly">elderly</option><option value="in their teens">in their teens</option><option value="middle-aged">middle-aged</option></select> members who remember the town's dark history from a century ago.</li>
+        </ol>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task-block">
+        <div class="task-title">Task 2: Emergent Language (Gossip Girl Blast)</div>
+        <p><em>Read the "Gossip Girl" style blast below. Fill in the gaps with the correct words from the previous lesson.</em></p>
+        
+        <div class="word-bank">
+            get squeaky clean • from the bottom to the top • uplifting mood • dedicated to students • school assembly • to reach • solid • liquid • turn 100 • get retired • demanding • in comparison • see off • carefree • boundaries
+        </div>
+
+        <p style="text-align: justify;">
+            "Hey Upper East Siders, XOXO.<br>
+            Word on the street is that the Constance Billard <input type="text" id="t2_1" placeholder="..."> was utterly chaotic today. The <input type="text" id="t2_2" placeholder="..."> headmistress tried to <input type="text" id="t2_3" placeholder="..."> about the new rules, but <input type="text" id="t2_4" placeholder="..."> to the Mystic Falls high school drama, it was a snooze fest. A teacher, who is surprisingly <input type="text" id="t2_5" placeholder="...">, tried to <input type="text" id="t2_6" placeholder="..."> the rumors, but her <input type="text" id="t2_7" placeholder="..."> couldn't save the day.<br>
+            Remember, darling, whether you're <input type="text" id="t2_8" placeholder="..."> or setting <input type="text" id="t2_9" placeholder="...">, your reputation is never <input type="text" id="t2_10" placeholder="..."> when the truth is <input type="text" id="t2_11" placeholder="...">—it always slips through your fingers.<br>
+            Some say the oldest vampire in town is about to <input type="text" id="t2_12" placeholder="..."> (again), rising <input type="text" id="t2_13" placeholder="..."> of the social ladder, while others just want to <input type="text" id="t2_14" placeholder="..."> and hide in their mansions. <input type="text" id="t2_15" placeholder="..."> true peace, you have to survive the scandal. XOXO."
+        </p>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="task-block">
+        <div class="task-title">Task 3: Life Events Vocabulary (A Dramatic Timeline)</div>
+        <p><em>Complete the timeline of Victoria Salvatore (a fictional character who blends the drama of both shows). Use the verbs in the correct past tense. Be careful with passive voice!</em></p>
+
+        <div class="word-bank" style="font-size: 0.8em;">
+            be born • be brought up (by) • grow up • start school • fall in love • get married • buy a house • emigrate • retire • start a family • get divorced • get engaged • go to university • have a change of a career • inherit • learn to drive • leave home • move (house) • pass away • split up • settle down • start a business • become a grandparent • get your first job
+        </div>
+
+        <div class="timeline-item"><span class="timeline-date">1864:</span> Victoria <input type="text" id="t3_1" placeholder="..."> in a grand mansion in Mystic Falls.</div>
+        <div class="timeline-item"><span class="timeline-date">1870:</span> She <input type="text" id="t3_2" placeholder="..."> her strict, vampire-hunting parents.</div>
+        <div class="timeline-item"><span class="timeline-date">1875:</span> She <input type="text" id="t3_3" placeholder="..."> at a strict academy for young ladies.</div>
+        <div class="timeline-item"><span class="timeline-date">1880:</span> She <input type="text" id="t3_4" placeholder="..."> to be a beautiful, rebellious young woman.</div>
+        <div class="timeline-item"><span class="timeline-date">1885:</span> She <input type="text" id="t3_5" placeholder="..."> and <input type="text" id="t3_6" placeholder="..."> to New York City.</div>
+        <div class="timeline-item"><span class="timeline-date">1886:</span> She <input type="text" id="t3_7" placeholder="..."> to study law (much to her family's dismay).</div>
+        <div class="timeline-item"><span class="timeline-date">1887:</span> She <input type="text" id="t3_8" placeholder="..."> a carriage (the 1800s version of driving).</div>
+        <div class="timeline-item"><span class="timeline-date">1888:</span> She <input type="text" id="t3_9" placeholder="..."> at a prestigious law firm.</div>
+        <div class="timeline-item"><span class="timeline-date">1890:</span> She <input type="text" id="t3_10" placeholder="..."> with a mysterious, wealthy stranger.</div>
+        <div class="timeline-item"><span class="timeline-date">1891:</span> They <input type="text" id="t3_11" placeholder="...">.</div>
+        <div class="timeline-item"><span class="timeline-date">1892:</span> They <input type="text" id="t3_12" placeholder="..."> in a lavish ceremony.</div>
+        <div class="timeline-item"><span class="timeline-date">1893:</span> They <input type="text" id="t3_13" placeholder="..."> on the Upper East Side.</div>
+        <div class="timeline-item"><span class="timeline-date">1894:</span> She <input type="text" id="t3_14" placeholder="..."> with the birth of twins.</div>
+        <div class="timeline-item"><span class="timeline-date">1896:</span> She <input type="text" id="t3_15" placeholder="..."> and became a socialite.</div>
+        <div class="timeline-item"><span class="timeline-date">1898:</span> She <input type="text" id="t3_16" placeholder="..."> selling anti-aging serum (ironic, considering).</div>
+        <div class="timeline-item"><span class="timeline-date">1900:</span> She <input type="text" id="t3_17" placeholder="..."> a fortune from a distant relative.</div>
+        <div class="timeline-item"><span class="timeline-date">1901:</span> Sadly, they <input type="text" id="t3_18" placeholder="..."> / <input type="text" id="t3_19" placeholder="..."> after a dramatic scandal.</div>
+        <div class="timeline-item"><span class="timeline-date">1905:</span> She <input type="text" id="t3_20" placeholder="..."> in a quiet, mysterious town.</div>
+        <div class="timeline-item"><span class="timeline-date">1910:</span> She <input type="text" id="t3_21" placeholder="..."> to Europe to escape the gossip.</div>
+        <div class="timeline-item"><span class="timeline-date">1920:</span> She <input type="text" id="t3_22" placeholder="..."> when her twins had children.</div>
+        <div class="timeline-item"><span class="timeline-date">1940:</span> She <input type="text" id="t3_23" placeholder="..."> from the social scene.</div>
+        <div class="timeline-item"><span class="timeline-date">1950:</span> She <input type="text" id="t3_24" placeholder="..."> peacefully (or did she?...).</div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="task-block">
+        <div class="task-title">Task 4: "Spilling the Tea" (Speaking & Writing)</div>
+        
+        <h3>Part A: Discussion</h3>
+        <p><em>Answer the questions below using the new vocabulary. Be ready to share your dramatic family stories!</em></p>
+        <ol>
+            <li>How did your grandparents meet? Did they have a dramatic love story, or did they just settle down quickly?</li>
+            <li>What are your boundaries when it comes to a carefree lifestyle vs. a demanding career? Would you rather inherit a fortune or start a business from the bottom to the top?</li>
+            <li>Has anyone in your family ever had a change of career or emigrated? What happened?</li>
+            <li>In comparison to the lives of the characters in Mystic Falls, how dramatic is your family's history?</li>
+        </ol>
+
+        <h3 style="margin-top: 25px;">Part B: Diary Entry (Writing)</h3>
+        <p><em>Imagine you are a character in Mystic Falls or the Upper East Side. Write a short diary entry (5-6 sentences) describing your family's darkest secret and the life events that led to it. Use at least 5 new vocabulary words from Task 3.</em></p>
+        <textarea id="t4_writing" rows="6" placeholder="Dear Diary, ..."></textarea>
+    </div>
+
+    <!-- КНОПКИ -->
+    <div class="btn-container">
+        <button onclick="checkAnswers()">🔮 Проверить ответы</button>
+        <button onclick="toggleAnswerKey()">🗝️ Показать ключи</button>
+        <button class="reset-btn" onclick="resetWorksheet()">🔄 Сбросить</button>
+        <button onclick="window.print()">🖨️ Распечатать / PDF</button>
+    </div>
+
+    <!-- КЛЮЧИ -->
+    <div class="answer-key" id="answerKey">
+        <h3>🔑 Teacher's Answer Key</h3>
+        <p><strong>Task 1:</strong> 1. in their teens, 2. centenarian, 3. middle-aged, 4. an infant, 5. an adult, 6. a toddler, 7. elderly</p>
+        <p><strong>Task 2:</strong> 1. school assembly, 2. demanding, 3. get squeaky clean, 4. in comparison, 5. dedicated to students, 6. see off, 7. uplifting mood, 8. carefree, 9. boundaries, 10. solid, 11. liquid, 12. turn 100, 13. from the bottom to the top, 14. get retired, 15. To reach</p>
+        <p><strong>Task 3:</strong> 1. was born, 2. was brought up by, 3. started school, 4. grew up, 5. left home, 6. moved house, 7. went to university, 8. learned to drive, 9. got her first job, 10. fell in love, 11. got engaged, 12. got married, 13. bought a house, 14. started a family, 15. had a change of a career, 16. started a business, 17. inherited, 18. got divorced, 19. split up (either order is fine for 18/19), 20. settled down, 21. emigrated, 22. became a grandparent, 23. got retired, 24. passed away</p>
+        <p><strong>Task 4 (Part B):</strong> Check for appropriate use of past tenses, narrative flow, and inclusion of at least 5 vocabulary words from Task 3. Creativity and dramatic flair should be encouraged!</p>
+    </div>
+</div>
+
+<script>
+    // Правильные ответы для проверки
+    const correctAnswers = {
+        // Task 1
+        t1_1: "in their teens",
+        t1_2: "centenarian",
+        t1_3: "middle-aged",
+        t1_4: "an infant",
+        t1_5: "an adult",
+        t1_6: "a toddler",
+        t1_7: "elderly",
+        // Task 2
+        t2_1: "school assembly",
+        t2_2: "demanding",
+        t2_3: "get squeaky clean",
+        t2_4: "in comparison",
+        t2_5: "dedicated to students",
+        t2_6: "see off",
+        t2_7: "uplifting mood",
+        t2_8: "carefree",
+        t2_9: "boundaries",
+        t2_10: "solid",
+        t2_11: "liquid",
+        t2_12: "turn 100",
+        t2_13: "from the bottom to the top",
+        t2_14: "get retired",
+        t2_15: "to reach",
+        // Task 3
+        t3_1: "was born",
+        t3_2: "was brought up by",
+        t3_3: "started school",
+        t3_4: "grew up",
+        t3_5: "left home",
+        t3_6: "moved house",
+        t3_7: "went to university",
+        t3_8: "learned to drive",
+        t3_9: "got her first job",
+        t3_10: "fell in love",
+        t3_11: "got engaged",
+        t3_12: "got married",
+        t3_13: "bought a house",
+        t3_14: "started a family",
+        t3_15: "had a change of a career",
+        t3_16: "started a business",
+        t3_17: "inherited",
+        t3_18: "got divorced",
+        t3_19: "split up",
+        t3_20: "settled down",
+        t3_21: "emigrated",
+        t3_22: "became a grandparent",
+        t3_23: "got retired",
+        t3_24: "passed away"
+    };
+
+    function checkAnswers() {
+        // Сначала сбрасываем предыдущие цвета
+        document.querySelectorAll('input[type="text"], select').forEach(el => {
+            el.classList.remove('correct', 'incorrect');
+        });
+
+        let score = 0;
+        let total = 0;
+
+        for (const [id, correctValue] of Object.entries(correctAnswers)) {
+            const element = document.getElementById(id);
+            if (element) {
+                total++;
+                let userValue = element.value.trim().toLowerCase();
+                let correct = correctValue.toLowerCase();
+
+                // Учитываем альтернативные варианты для 18/19
+                if (id === 't3_18' || id === 't3_19') {
+                    if (userValue === 'got divorced' || userValue === 'split up') {
+                        element.classList.add('correct');
+                        score++;
+                        continue;
+                    }
+                }
+
+                // Убираем артикли для гибкости проверки (например, "an adult" -> "adult")
+                const cleanUser = userValue.replace(/^(a|an|the)\s+/, '');
+                const cleanCorrect = correct.replace(/^(a|an|the)\s+/, '');
+
+                if (cleanUser === cleanCorrect || userValue === correct) {
+                    element.classList.add('correct');
+                    score++;
+                } else {
+                    element.classList.add('incorrect');
+                }
+            }
+        }
+
+        // Небольшая задержка, чтобы пользователь увидел результат
+        setTimeout(() => {
+            alert(`Результат: ${score} из ${total} правильных ответов.\n\nЗеленым подсвечены правильные ответы, красным — ошибки.`);
+        }, 100);
+    }
+
+    function toggleAnswerKey() {
+        const key = document.getElementById('answerKey');
+        if (key.style.display === 'block') {
+            key.style.display = 'none';
+        } else {
+            key.style.display = 'block';
+        }
+    }
+
+    function resetWorksheet() {
+        document.querySelectorAll('input[type="text"]').forEach(el => {
+            el.value = '';
+            el.classList.remove('correct', 'incorrect');
+        });
+        document.querySelectorAll('select').forEach(el => {
+            el.value = '';
+            el.classList.remove('correct', 'incorrect');
+        });
+        document.getElementById('t4_writing').value = '';
+    }
+</script>
+
+</body>
+</html>
